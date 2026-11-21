@@ -44,12 +44,12 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 ### Phần việc phụ trách
 
 - Người gắn nhãn 1 (TV3): `report/team/bang_loi.md`, `report/team/chi_so.md`, `report/team/phieu_cham.md`, câu trả lời A2, A3, B3, B4, năm câu D2, soát checklist nộp bài.
-- Nhận thêm trong buổi: `src/lab13.py`, bảng trong `report/team/bang_chi_phi.md`, `report/team/pilot_plan.yaml`, `report/team/ho_so_launch_v0.md`, `report/team/group_report.md`, `TEAM.md`.
+- Nhận thêm trong buổi: `report/team/ho_so_launch_v0.md`, `report/team/group_report.md`, `TEAM.md`.
 
 ### Đóng góp cụ thể
 
-- `src/lab13.py` chạy từ đầu đến cuối: A1 (ba phép thử ĐẠT), A2–A4, B1–B4, D1, E1.
-- `bang_chi_phi.md`, `chi_so.md`, `pilot_plan.yaml`, `ho_so_launch_v0.md`, `group_report.md`: điền đủ, số lấy từ `lab13.py`, số giả lập có nhãn `simulated`.
+- `chi_so.md`, `ho_so_launch_v0.md`, `group_report.md`: điền đủ, số lấy từ `lab13.py`, số giả lập có nhãn `simulated`.
+- Làm một bản `lab13.py` song song để đối chiếu (cùng kết quả số); khi gộp, nhóm giữ bản `lab13.py`, `bang_chi_phi.md`, `pilot_plan.yaml` của TV1/TV2.
 - `bang_loi.md`: bảng khắc phục 5 ca; nhãn 20 ca theo bảng tham khảo (không gắn độc lập).
 - Dùng Claude Code cho phần lớn code và văn bản; tự kiểm tra bằng cách so với số đối chiếu trong tài liệu (chi tiết trong báo cáo cá nhân).
 
