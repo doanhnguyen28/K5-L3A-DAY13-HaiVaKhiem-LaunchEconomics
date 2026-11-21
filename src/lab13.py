@@ -4,6 +4,7 @@ Không cần khoá API. Điền các chỗ ghi VIẾT Ở ĐÂY (đánh dấu TO
 Bản gốc chưa sửa nằm ở lab13_starter.py.
 """
 import math
+from statistics import NormalDist
 import pandas as pd
 
 # Bảng giá GIẢ ĐỊNH của lab (không phải giá thật của nhà cung cấp nào)
@@ -165,7 +166,60 @@ def xem_lai_toan_bo(runs, reqs, phut_xem=5, phut_lam_lai=9):
                 so_voi_baseline=tong / tc / BASELINE, phut_xem_hoa_von=hoa_von)
 
 
+# ---------- Nhiệm vụ D1 · Cỡ mẫu ----------
+ICC = 0.02
+
+
+def co_mau(p1, p2, alpha=0.05, power=0.8):
+    """Cỡ mẫu mỗi nhóm khi so hai tỉ lệ (z chính xác)."""
+    za, zb = NormalDist().inv_cdf(1 - alpha / 2), NormalDist().inv_cdf(power)
+    pb = (p1 + p2) / 2
+    return math.ceil((za * math.sqrt(2 * pb * (1 - pb))
+                      + zb * math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))) ** 2 / (p2 - p1) ** 2)
+
+
+def he_so_thiet_ke(m, icc=ICC):
+    """DE = 1 + (m − 1) × ICC, m = số yêu cầu mỗi cụm."""
+    return 1 + (m - 1) * icc
+
+
+def cau_d1(p1=0.70, icc=ICC):
+    """Năm câu D1 và power ở mức 5 điểm khi thiết kế cho mức 6 điểm."""
+    n_a = co_mau(p1, p1 + 0.05)
+    de_b = he_so_thiet_ke(75, icc)
+    n_b = math.ceil(n_a * de_b)
+    n_e = co_mau(p1, p1 + 0.06)
+    # e: 20m / (1 + (m − 1)·ICC) ≥ n_e  →  m ≥ n_e(1 − ICC) / (20 − n_e·ICC)
+    m_e = math.ceil(n_e * (1 - icc) / (20 - n_e * icc))
+    try:
+        from statsmodels.stats.proportion import proportion_effectsize
+        from statsmodels.stats.power import NormalIndPower
+        power_5 = NormalIndPower().power(proportion_effectsize(p1 + 0.05, p1), nobs1=n_e, alpha=0.05)
+    except ImportError:
+        power_5 = None
+    return dict(a=n_a, b_de=de_b, b_n=n_b, b_nguoi=math.ceil(n_b / 75),
+                c=20 / icc, d=6 / icc, e_n=n_e, e_m=m_e, e_de=he_so_thiet_ke(m_e, icc),
+                power_5_diem=power_5)
+
+
+# ---------- Nhiệm vụ E · Chỉ số ----------
+def chi_so_e(reqs):
+    """Chỉ số chính, chỉ số dùng, chỉ số an toàn: trả về (tỉ lệ, tử số, mẫu số)."""
+    dong = reqs['dong_trong_24h'].astype(int)
+    mo_lai = reqs['mo_lai_trong_7_ngay'].astype(int)
+    chinh = int(((dong == 1) & (mo_lai == 0)).sum())
+    xem = reqs[reqs['duoc_xem_lai'].astype(int) == 1]
+    bo_qua = int(xem['quyet_dinh_xem_lai'].isin(['sua', 'bo']).sum())
+    an_toan = int((mo_lai == 1).sum())
+    return {'Chính': (chinh / len(reqs), chinh, len(reqs)),
+            'Dùng': (bo_qua / len(xem), bo_qua, len(xem)),
+            'An toàn': (an_toan / len(reqs), an_toan, len(reqs))}
+
+
 if __name__ == '__main__':
+    import sys
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')   # console Windows mặc định cp1252, không in được tiếng Việt
     runs = pd.read_csv('logix_runs.csv')
     reqs = pd.read_csv('logix_requests.csv', keep_default_na=False)
     kiem_tra_dap_an_biet_truoc()
@@ -204,6 +258,23 @@ if __name__ == '__main__':
         b4 = xem_lai_toan_bo(runs, reqs, phut_lam_lai=phut)
         print(f"Làm lại {phut} phút/ca: tổng {b4['tong']:,.0f} đ / {b4['thanh_cong']} = {b4['cps']:,.0f} đ"
               f" = {b4['so_voi_baseline']:.2f}× · hoà vốn xem lại ≤ {b4['phut_xem_hoa_von']:.1f} phút")
-    # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
-    #   from statsmodels.stats.proportion import proportion_effectsize
-    #   from statsmodels.stats.power import NormalIndPower
+    # TODO CP4 · Nhiệm vụ D: cỡ mẫu (đã làm)
+    print('\n== D1 · Cỡ mẫu (baseline 0,70; +5 điểm; alpha 0,05; power 0,8; ICC 0,02) ==')
+    d1 = cau_d1()
+    print(f"a) Chia theo yêu cầu: {d1['a']:,} yêu cầu mỗi nhóm")
+    print(f"b) Theo nhân viên, m = 75: DE = {d1['b_de']:.2f} → {d1['b_n']:,} mỗi nhóm"
+          f" → {d1['b_nguoi']} người mỗi nhóm, tổng {2 * d1['b_nguoi']} > 40: không đủ người")
+    print(f"c) 20 nhân viên mỗi nhóm: tối đa {d1['c']:,.0f} < {d1['a']:,}: không đạt")
+    print(f"d) 6 depot mỗi nhóm: tối đa {d1['d']:,.0f}")
+    print(f"e) Mức chênh 6 điểm ({d1['e_n']} mỗi nhóm), 20 người mỗi nhóm: m ≥ {d1['e_m']}"
+          f" yêu cầu mỗi người (DE {d1['e_de']:.2f})")
+    if d1['power_5_diem'] is not None:
+        print(f"Power ở mức 5 điểm khi n = {d1['e_n']}: {d1['power_5_diem']:.2f}")
+    mo_lai = reqs['mo_lai_trong_7_ngay'].astype(int)
+    pv = reqs['loai'].isin(['noi_dia', 'hang_nang'])
+    print(f"Tỉ lệ mo_lai_trong_7_ngay hiện tại: {mo_lai.mean():.2%} ({mo_lai.sum()}/{len(reqs)})"
+          f" · trong phạm vi noi_dia + hang_nang: {mo_lai[pv].mean():.2%}")
+
+    print('\n== E · Ba chỉ số trên 1.200 yêu cầu chạy thử ==')
+    for ten, (gia_tri, tu, mau) in chi_so_e(reqs).items():
+        print(f'{ten:8s} {gia_tri:.2%} ({tu}/{mau})')
