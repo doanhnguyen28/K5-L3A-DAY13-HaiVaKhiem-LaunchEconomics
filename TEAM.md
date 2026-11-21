@@ -14,7 +14,7 @@
 |   1 | Hoàng Gia Khiêm | 2A202603540 | khiemhg0709@gmail.com | khiemhg79 | Người viết code ca 1 (14:00–15:20), kiểm số ca 2 |
 |   2 | Đặng Thanh Hải | 2A202603570 | haidangbk.nd@gmail.com | HaiDang0502 | Người kiểm số ca 1, người viết code ca 2 (15:35–18:00) |
 |   3 | Nguyễn Đăng Doanh | 2A202603597 | (điền) | doanhnguyen28 | Người gắn nhãn 1 |
-|   4 | (điền) | (điền) | (điền) | (điền) | Người gắn nhãn 2, kiêm giữ hồ sơ |
+|   4 | Đoàn Văn Tú | 2A202603595 | tudoan.vnuis@gmail.com | tu7749 | Người gắn nhãn 2, kiêm giữ hồ sơ |
 
 Bốn vai của lab:
 
@@ -27,7 +27,7 @@ Bốn vai của lab:
 
 Phân công chi tiết theo checkpoint: [chiaviec.md](chiaviec.md).
 
-**Ghi chú nhiệm vụ C:** nhóm không thực hiện bước hai người gắn nhãn độc lập; nhãn trong `report/team/bang_loi.md` lấy theo bảng tham khảo của tài liệu và đã ghi rõ trong file.
+**Ghi chú nhiệm vụ C:** nhóm chưa có hai bộ nhãn độc lập; nhãn ban đầu trong `report/team/bang_loi.md` lấy theo bảng tham khảo. TV4 đã bổ sung rà soát 20 ca bằng Codex có nhãn và lý do; phần bổ sung không phải bộ nhãn độc lập của thành viên và không dùng tính đồng thuận.
 
 ## Cá nhân
 
@@ -95,16 +95,23 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 
 - (TV2 tự điền: commit, file, báo cáo cá nhân)
 
-## (Họ tên TV4)-(MSSV)
+## DoanVanTu-2A202603595
 
 ### Phần việc phụ trách
 
-- Người gắn nhãn 2, kiêm giữ hồ sơ (theo `chiaviec.md`).
+- TV4, người gắn nhãn 2 kiêm giữ hồ sơ (theo `chiaviec.md`): rà soát và hoàn thiện `report/team/ho_so_launch_v0.md`, `report/team/group_report.md`, thông tin và đóng góp trong `TEAM.md`.
+- Phần gắn nhãn độc lập chưa thực hiện; chuẩn bị nội dung bảo vệ Gate 2a, chưa có kết quả duyệt chéo.
 
 ### Đóng góp cụ thể
 
-- (TV4 tự điền)
+- Tiếp nhận bản nháp hồ sơ và báo cáo do Nguyễn Đăng Doanh (TV3) soạn; đối chiếu với code và hồ sơ A–E bằng Codex, giữ nguyên ghi nhận đóng góp của TV3.
+- Sửa cách ghi độ nhạy tăng/giảm, làm rõ phạm vi và chi phí cố định khi so sánh với 12.000 đ; phân biệt 859 mẫu hiệu dụng và 5.980 yêu cầu thực tế mỗi nhóm.
+- Ghi đúng trạng thái phần gắn nhãn còn thiếu; tách điều kiện trước pilot khỏi mốc đo thật sau tuần 1, bổ sung các điểm cần TV2/TV3 làm rõ trước khi chốt.
+- Bổ sung rà soát 20 ca trong `report/team/bang_loi.md` bằng Codex, có nhãn và lý do theo nguyên nhân gốc; giữ nguyên nhãn cũ và ghi rõ chưa có đồng thuận độc lập.
+- Hoàn thiện thông tin TV4 và báo cáo cá nhân; dùng ChatGPT/Codex để rà soát, chỉnh tài liệu và chạy kiểm tra số liệu.
 
 ### Bằng chứng
 
-- (TV4 tự điền: commit, file, báo cáo cá nhân)
+- Báo cáo cá nhân: [report/team/2A202603595_DoanVanTu.md](report/team/2A202603595_DoanVanTu.md).
+- File sửa: `report/team/ho_so_launch_v0.md`, `report/team/group_report.md`, `TEAM.md`, dòng TV4 trong `chiaviec.md`.
+- Kết quả kiểm tra bằng Codex: `cd src && python3 lab13.py` chạy hết; ba phép thử A1 đạt; YAML đọc được, có 4 luật dừng. Các điều kiện vận hành là đề xuất, chưa có bằng chứng triển khai.

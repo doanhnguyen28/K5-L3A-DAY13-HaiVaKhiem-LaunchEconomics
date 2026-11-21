@@ -9,7 +9,7 @@ Bám theo 4 vai trong [TEAM.md](TEAM.md) và lịch 5 checkpoint trong [CHECKPOI
 | TV1 | | **Người viết code ca 1** (14:00–15:20) → kiểm số ca 2 | `src/lab13.py` (tới giải lao), `report/team/bang_chi_phi.md` |
 | TV2 | | **Người kiểm số ca 1** → **người viết code ca 2** (15:35–18:00) | `src/lab13.py` (sau giải lao), `report/team/pilot_plan.yaml` |
 | TV3 | | **Người gắn nhãn 1** — đọc đề, canh điều kiện "Xong khi", canh giờ | `report/team/bang_loi.md`, `report/team/chi_so.md`, `report/team/phieu_cham.md` |
-| TV4 | | **Người gắn nhãn 2, kiêm giữ hồ sơ** — điền hồ sơ từ đầu buổi | `report/team/ho_so_launch_v0.md`, `report/team/group_report.md`, `TEAM.md` |
+| TV4 | Đoàn Văn Tú — 2A202603595 | **Người gắn nhãn 2, kiêm giữ hồ sơ** — điền hồ sơ từ đầu buổi | `report/team/ho_so_launch_v0.md`, `report/team/group_report.md`, `TEAM.md` |
 
 Đổi người viết code sau giải lao là yêu cầu của đề: TV1 và TV2 đều phải tự tay tính được chi phí mỗi việc thành công.
 
