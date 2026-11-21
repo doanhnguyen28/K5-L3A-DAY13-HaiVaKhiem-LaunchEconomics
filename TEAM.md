@@ -11,8 +11,8 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
+|   1 | Hoàng Gia Khiêm | 2A202603540 | khiemhg0709@gmail.com | khiemhg79 | TV1 · Người viết code ca 1 → người kiểm số ca 2 |          |
+|   2 | Đặng Thanh Hải | 2A202603570 | haidangbk.nd@gmail.com | HaiDang0502 | Người kiểm số ca 1 → người viết code ca 2        |
 |   3 |        |      |       |        |         |
 |   4 |        |      |       |        |         |
 
